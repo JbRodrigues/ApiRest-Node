@@ -1,11 +1,19 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
+import statusRoutes from "./routes/status.routes";
+import usersRoutes from "./routes/user.routes";
+
 
 const app = express();
 
-app.get('/status', (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).send({Status: 'Sucess!'});
-});
+//Applications
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
+//Routes
+app.use(usersRoutes);
+app.use(statusRoutes);
+
+//Server
 app.listen(3000, () => {
     console.log("Running: Port 3000!");
 })
